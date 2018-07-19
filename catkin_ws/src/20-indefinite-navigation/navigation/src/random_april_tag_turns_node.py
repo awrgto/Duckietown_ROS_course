@@ -3,7 +3,7 @@ import rospy
 import numpy
 from duckietown_msgs.msg import FSMState, AprilTagsWithInfos, BoolStamped
 from std_msgs.msg import String, Int16 #Imports msg
-
+import urllib2
 class RandomAprilTagTurnsNode(object):
     def __init__(self):
         # Save the name of the node
@@ -20,7 +20,7 @@ class RandomAprilTagTurnsNode(object):
         # self.sub_topic_b = rospy.Subscriber("~topic_b", String, self.cbTopic)
         self.sub_topic_mode = rospy.Subscriber("~mode", FSMState, self.cbMode, queue_size=1)
         self.sub_topic_tag = rospy.Subscriber("~tag", AprilTagsWithInfos, self.cbTag, queue_size=1)
-       
+        self.pub_CommodityInfo = rospy.Publisher("tsp_salesman_nagivation/commodity_info",String, queue_size=1)
 
         # Read parameters
         self.pub_timestep = self.setupParameter("~pub_timestep",1.0)
@@ -49,19 +49,29 @@ class RandomAprilTagTurnsNode(object):
                     availableTurns = []
                     #go through possible intersection types
                     signType = taginfo.traffic_sign_type
-                    if(signType == taginfo.NO_RIGHT_TURN or signType == taginfo.LEFT_T_INTERSECT):
-                        availableTurns = [0,1] # these mystical numbers correspond to the array ordering in open_loop_intersection_control_node (very bad)
-                    elif (signType == taginfo.NO_LEFT_TURN or signType == taginfo.RIGHT_T_INTERSECT):
-                        availableTurns = [1,2]
-                    elif (signType== taginfo.FOUR_WAY):
-                        availableTurns = [0,1,2]
-                    elif (signType == taginfo.T_INTERSECTION):
-                        availableTurns = [0,2]
-
-                        #now randomly choose a possible direction
-                    if(len(availableTurns)>0):
-                        randomIndex = numpy.random.randint(len(availableTurns))
-                        chosenTurn = availableTurns[randomIndex]
+                    strhttp='http://192.168.0.100/tsp/car_recode_navigation.php?car_id=1&tag_id='+str(taginfo.id)
+                    req = urllib2.Request(strhttp)
+                    response = urllib2.urlopen(req)
+                    the_page = response.read()
+                    print the_page
+                    the_car_action=the_page.split(",")
+                    print "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
+                    print the_car_action[0]
+                    commodity_message=""
+                    if(the_car_action[1]):
+                        commodity_message=the_car_action[1]
+                    self.pub_CommodityInfo.publish(commodity_message)
+                    if(the_car_action[0]!="!"):
+                        if the_car_action[0]=="S":
+                            chosenTurn=1
+                        elif the_car_action[0]=="L":
+                            chosenTurn=0
+                        elif the_car_action[0]=="R":
+                            chosenTurn=2
+                        elif the_car_action[0]=="B":
+                            chosenTurn=3
+                        else:
+                            return
                         self.turn_type = chosenTurn
                         self.pub_turn_type.publish(self.turn_type)
                         rospy.loginfo("possible turns %s." %(availableTurns))
