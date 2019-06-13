@@ -1,0 +1,14 @@
+<launch>
+	<arg name="pkg_name" value="led_control_publish"/>
+	<arg name="node_name" default="led_publish_node"/>
+	
+	<!-- ex1_publish_node -->
+	<node name="$(argnode_name)" pkg="$(argpkg_name)" type="$(argnode_name).py" output="screen">
+	</node>
+
+	<!-- ex1_subscribe -->
+	<remap from="ex1_subscribe_node/password" to="ex1_publish_node/password"/>
+	<include file="$(find ex1_subscribe)/launch/ex1_subscribe.launch">
+	</include>
+
+</launch>
