@@ -11,7 +11,7 @@ class Led_subscribe(object):
 		self.sub_control = rospy.Subscriber("~led_test_control", Int32, self.sbControl, queue_size = 1)
 	
 	def sbControl(self, control_msg):
-		p = GPIO.PWM(12, 50)  # 通道为 12 频率为 50Hz
+		p = GPIO.PWM(12, 50)
 		p.start(0)
 		try:
 			while 1:
