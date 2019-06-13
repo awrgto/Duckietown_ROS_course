@@ -6,6 +6,4 @@
 
 	<node name="$(arg node_name)" pkg="$(arg pkg_name)" type="$(arg node_name).py" output="screen">
 	</node>
-	<remap to="led_subscribe_node/led_test_control" from="led_publish_node/led_test_control"/>
-	<include file="$(find led_control_publish)/launch/led_control_publish.launch">
 </launch>
