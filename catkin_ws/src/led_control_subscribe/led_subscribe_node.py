@@ -15,20 +15,23 @@ class Led_subscribe(object):
 		p = GPIO.PWM(12, 50)
 		p.start(0)
 		try:
-			while 1:
+			dcc = 5
+			while dcc:
 				for dc in range(0, 101, 5):
 					p.ChangeDutyCycle((control_msg.data+dc)%100)
 					time.sleep(0.1)
 				for dc in range(100, -1, -5):
 					p.ChangeDutyCycle(dc)
 					time.sleep(0.1)
+				dcc -= 1
 		except KeyboardInterrupt:
 			pass
-		control_msg = control_msg
+#		control_msg = control_msg
 		print("[led_subscribe_node] Subscribe successfully!")
 		print("your light level of led is %d" % control_msg.data)
 		p = GPIO.PWM(12,1)
 		p.ChangeDutyCycle(control_msg.data)
+		time.sleep(10)
 		raw_input("press any to break")
 		p.stop()
 		GPIO.cleanup()
