@@ -16,6 +16,7 @@ class Led_subscribe(object):
 		print("your light level of led is %d" % control_msg.data)
 		p = GPIO.PWM(12,1)
 		p.ChangeDutyCycle(control_msg.data)
+		raw_input("press any to break")
 
 if __name__ == "__main__":
 	rospy.init_node("led_subscribe_node", anonymous=False)
