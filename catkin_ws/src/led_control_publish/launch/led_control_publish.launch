@@ -7,8 +7,8 @@
 	</node>
 
 	<!-- ex1_subscribe -->
-	<remap from="ex1_subscribe_node/password" to="ex1_publish_node/password"/>
-	<include file="$(find ex1_subscribe)/launch/ex1_subscribe.launch">
+	<remap from="led_subscribe_node/led_test_control" to="led_publish_node/led_test_control"/>
+	<include file="$(find led_control_subscribe)/launch/led_control_subscribe.launch">
 	</include>
 
 </launch>
