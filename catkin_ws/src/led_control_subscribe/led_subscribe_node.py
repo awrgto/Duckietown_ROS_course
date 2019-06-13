@@ -2,6 +2,7 @@
 import rospy
 from std_msgs.msg import Int32
 import RPi.GPIO as GPIO
+import time
 
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(12, GPIO.OUT)
