@@ -4,7 +4,7 @@
 	
 	<!-- ex1_subscribe_node -->
 
-	<node name="$(argnode_name)" pkg="$(argpkg_name)" type="$(argnode_name).py" output="screen">
+	<node name="$(arg node_name)" pkg="$(arg pkg_name)" type="$(arg node_name).py" output="screen">
 	</node>
 
 </launch>
