@@ -30,7 +30,10 @@ class JoyMapper(object):
         self.pub_anti_instagram = rospy.Publisher("anti_instagram_node/click",BoolStamped, queue_size=1)
         self.pub_e_stop = rospy.Publisher("wheels_driver_node/emergency_stop",BoolStamped,queue_size=1)
         self.pub_avoidance = rospy.Publisher("~start_avoidance",BoolStamped,queue_size=1)
-
+		
+		#Publications for FSM
+		self.pub_one_color = rospy.Publisher("~one_color", BoolStamped, queue_size=1)
+		
         # Subscriptions
         self.sub_joy_ = rospy.Subscriber("joy", Joy, self.cbJoy, queue_size=1)
 
@@ -125,7 +128,20 @@ class JoyMapper(object):
             avoidance_msg.header.stamp = self.joy.header.stamp
             avoidance_msg.data = True
             self.pub_avoidance.publish(avoidance_msg)
-
+		#FSM_control
+		elif (joy_msg.button[1] == 1):
+			one_color_msg = BoolStamped()
+			rospy.loginfo('start lane following with yellow')
+			one_color_msg.header.stamp = self.joy.header.stamp
+			one_color_msg.data = True
+			self.pub_one_color.publish(one_color_msg)
+		elif (joy_msg.button[2] == 1):
+			one_color_msg = BoolStamped()
+			rospy.loginfo('start lane following with blue')
+			one_color_msg.header.stamp = self.joy.header.stamp
+			one_color_msg.data = False
+			self.pub_one_color.publish(one_color_msg)
+			
         else:
             some_active = sum(joy_msg.buttons) > 0
             if some_active:
