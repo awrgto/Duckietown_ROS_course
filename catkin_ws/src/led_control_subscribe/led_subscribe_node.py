@@ -19,5 +19,5 @@ class Led_subscribe(object):
 
 if __name__ == "__main__":
 	rospy.init_node("led_subscribe_node", anonymous=False)
-	led_subscribe = Led_subscribe()
+	led_control_subscribe = Led_subscribe()
 	rospy.spin()
