@@ -17,5 +17,5 @@ class Led_publish(object):
 			
 if __name__ == "__main__":
 	rospy.init_node("led_publish_node", anonymous=False)
-	led_publish_node = Led_publish()
+	led_control_publish = Led_publish()
 	rospy.spin()
