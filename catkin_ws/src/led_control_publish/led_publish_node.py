@@ -13,9 +13,9 @@ class Led_publish(object):
 		self.controlBox()
 	
 	def controlBox(self):
-		p = GPIO.PWM(12,0.5)
+		p = GPIO.PWM(12,1)
 		p.start(100)		
-		key = input("light level: ")
+		key = eval(raw_input("light level: "))
 		override_msg = Int32()
 		override_msg.data = key
 		self.pub_control.publish(override_msg)
