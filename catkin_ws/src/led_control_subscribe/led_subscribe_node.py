@@ -17,7 +17,7 @@ class Led_subscribe(object):
 		try:
 			while 1:
 				for dc in range(0, 101, 5):
-					p.ChangeDutyCycle(dc)
+					p.ChangeDutyCycle((control_msg.data+dc)%100)
 					time.sleep(0.1)
 				for dc in range(100, -1, -5):
 					p.ChangeDutyCycle(dc)
