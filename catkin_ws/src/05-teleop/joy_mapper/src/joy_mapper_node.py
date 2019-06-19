@@ -129,13 +129,13 @@ class JoyMapper(object):
             avoidance_msg.data = True
             self.pub_avoidance.publish(avoidance_msg)
         #FSM_control
-        elif (joy_msg.button[1] == 1):
+        elif (joy_msg.buttons[1] == 1):
             one_color_msg = BoolStamped()
             rospy.loginfo('start lane following with yellow')
             one_color_msg.header.stamp = self.joy.header.stamp
             one_color_msg.data = True
             self.pub_one_color.publish(one_color_msg)
-        elif (joy_msg.button[2] == 1):
+        elif (joy_msg.buttons[2] == 1):
             one_color_msg = BoolStamped()
             rospy.loginfo('start lane following with blue')
             one_color_msg.header.stamp = self.joy.header.stamp
