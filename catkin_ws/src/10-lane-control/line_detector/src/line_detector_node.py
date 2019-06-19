@@ -59,7 +59,7 @@ class LineDetectorNode(object):
         rospy.loginfo("[%s] Initialized (verbose = %s)." %(self.node_name, self.verbose))
 
         rospy.Timer(rospy.Duration.from_sec(2.0), self.updateParams)
-		
+        
         self.fsm_state = None
 
 
@@ -87,9 +87,9 @@ class LineDetectorNode(object):
             self.pub_edge = rospy.Publisher("~edge", Image, queue_size=1)
             self.pub_colorSegment = rospy.Publisher("~colorSegment", Image, queue_size=1)
 
-	def cdFSM(self, msg):
-		self.fsm_state = msg.state
-	
+    def cdFSM(self, msg):
+        self.fsm_state = msg.state
+    
     def cbSwitch(self, switch_msg):
         self.active = switch_msg.data
 
