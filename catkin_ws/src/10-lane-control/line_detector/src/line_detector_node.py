@@ -87,7 +87,7 @@ class LineDetectorNode(object):
             self.pub_edge = rospy.Publisher("~edge", Image, queue_size=1)
             self.pub_colorSegment = rospy.Publisher("~colorSegment", Image, queue_size=1)
 
-    def cdFSM(self, msg):
+    def cbFSM(self, msg):
         self.fsm_state = msg.state
     
     def cbSwitch(self, switch_msg):
