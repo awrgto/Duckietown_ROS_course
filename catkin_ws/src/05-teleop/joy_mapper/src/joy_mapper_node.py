@@ -136,7 +136,7 @@ class JoyMapper(object):
             self.pub_one_color.publish(one_color_msg)
         elif (joy_msg.buttons[2] == 1):
             one_color_msg = BoolStamped()
-            rospy.loginfo('start lane following with Blue)
+            rospy.loginfo('start lane following with Blue')
             one_color_msg.header.stamp = self.joy.header.stamp
             one_color_msg.data = False
             self.pub_one_color.publish(one_color_msg)
