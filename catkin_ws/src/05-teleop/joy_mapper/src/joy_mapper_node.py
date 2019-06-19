@@ -32,7 +32,7 @@ class JoyMapper(object):
         self.pub_avoidance = rospy.Publisher("~start_avoidance",BoolStamped,queue_size=1)
 		
 		#Publications for FSM
-		self.pub_one_color = rospy.Publisher("~one_color", BoolStamped, queue_size=1)
+        self.pub_one_color = rospy.Publisher("~one_color", BoolStamped, queue_size=1)
 		
         # Subscriptions
         self.sub_joy_ = rospy.Subscriber("joy", Joy, self.cbJoy, queue_size=1)
