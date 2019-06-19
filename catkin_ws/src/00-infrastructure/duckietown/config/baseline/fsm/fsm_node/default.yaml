@@ -219,7 +219,6 @@ states:
   YELLOW_FOLLOWING:
     transitions:
       found_lane: "LANE_FOLLOWING"
-      joystick_2: "BLUE_FOLLOWING"
     active_nodes:
       - anti_instagram_node
       - decoder_node
@@ -238,7 +237,6 @@ states:
   BLUE_FOLLOWING:
     transitions:
       found_lane:"LANE_FOLLOWING"
-      joystick_1: "YELLOW_FOLLOWING"
     active_nodes:
       - anti_instagram_node
       - decoder_node
