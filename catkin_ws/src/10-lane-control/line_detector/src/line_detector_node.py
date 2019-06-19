@@ -189,6 +189,7 @@ class LineDetectorNode(object):
         # Convert to normalized pixel coordinates, and add segments to segmentList
         arr_cutoff = np.array((0, self.top_cutoff, 0, self.top_cutoff))
         arr_ratio = np.array((1./self.image_size[1], 1./self.image_size[0], 1./self.image_size[1], 1./self.image_size[0]))
+        rospy.loginfo(self.fsm_state) #debug nutn
         if len(white.lines) > 0:
             lines_normalized_white = ((white.lines + arr_cutoff) * arr_ratio)
             if self.fsm_state == "BLUE_FOLLOWING":
