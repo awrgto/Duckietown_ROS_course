@@ -192,10 +192,12 @@ class LineDetectorNode(object):
         if len(white.lines) > 0:
             lines_normalized_white = ((white.lines + arr_cutoff) * arr_ratio)
             if self.fsm_state == "BLUE_FOLLOWING":
+                rospy.loginfo(self.fsm_state)
                 segmentList.segments.extend(self.toSegmentMsg(lines_normalized_white, white.normals, Segment.WHITE))
         if len(yellow.lines) > 0:
             lines_normalized_yellow = ((yellow.lines + arr_cutoff) * arr_ratio)
             if self.fsm_state == "YELLOW_FOLLOWING":
+                rospy.loginfo(self.fsm_state)
                 segmentList.segments.extend(self.toSegmentMsg(lines_normalized_yellow, yellow.normals, Segment.YELLOW))
         if len(red.lines) > 0:
             lines_normalized_red = ((red.lines + arr_cutoff) * arr_ratio)
