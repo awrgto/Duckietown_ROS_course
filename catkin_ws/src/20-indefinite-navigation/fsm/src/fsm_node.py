@@ -146,7 +146,7 @@ class FSMNode(object):
 
     def publishState(self):
         self.pub_state.publish(self.state_msg)
-        ###rospy.loginfo("[%s] FSMState: %s" %(self.node_name, self.state_msg.state))
+        rospy.loginfo("[%s] FSMState: %s" %(self.node_name, self.state_msg.state))  ###anti comment
 
     def publishBools(self):
         active_nodes = self._getActiveNodesOfState(self.state_msg.state)
