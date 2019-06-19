@@ -48,7 +48,7 @@ class JoyMapper(object):
         self.pub_parallel_autonomy.publish(pub_msg)
         
         #FSM
-        self.pub_one color = rospy.Publisher("~one color", BoolStamped, queue_size=1)
+        self.pub_one_color = rospy.Publisher("~one color", BoolStamped, queue_size=1)
 
     def cbParamTimer(self,event):
         self.v_gain = rospy.get_param("~speed_gain", 1.0)
