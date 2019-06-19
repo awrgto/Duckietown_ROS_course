@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 from anti_instagram.AntiInstagram import AntiInstagram
 from cv_bridge import CvBridge, CvBridgeError
-from duckietown_msgs.msg import (AntiInstagramTransform, BoolStamped, Segment,
+from duckietown_msgs.msg import (AntiInstagramTransform, BoolStamped, Segment, FSMState
     SegmentList, Vector2D)
 from duckietown_utils.instantiate_utils import instantiate
 from duckietown_utils.jpg import image_cv_from_jpg
@@ -59,7 +59,11 @@ class LineDetectorNode(object):
         rospy.loginfo("[%s] Initialized (verbose = %s)." %(self.node_name, self.verbose))
 
         rospy.Timer(rospy.Duration.from_sec(2.0), self.updateParams)
-
+        
+        self.fsm_state = None
+    
+    def cbFSM(self, msg):
+        self.fsm_state = msg.state
 
     def updateParams(self, _event):
         old_verbose = self.verbose
@@ -187,10 +191,12 @@ class LineDetectorNode(object):
         arr_ratio = np.array((1./self.image_size[1], 1./self.image_size[0], 1./self.image_size[1], 1./self.image_size[0]))
         if len(white.lines) > 0:
             lines_normalized_white = ((white.lines + arr_cutoff) * arr_ratio)
-            segmentList.segments.extend(self.toSegmentMsg(lines_normalized_white, white.normals, Segment.WHITE))
+            if self.fsm_state == "BLUE_FOLLOWING":
+                segmentList.segments.extend(self.toSegmentMsg(lines_normalized_white, white.normals, Segment.WHITE))
         if len(yellow.lines) > 0:
             lines_normalized_yellow = ((yellow.lines + arr_cutoff) * arr_ratio)
-            segmentList.segments.extend(self.toSegmentMsg(lines_normalized_yellow, yellow.normals, Segment.YELLOW))
+            if self.fsm_state == "YELLOW_FOLLOWING":
+                segmentList.segments.extend(self.toSegmentMsg(lines_normalized_yellow, yellow.normals, Segment.YELLOW))
         if len(red.lines) > 0:
             lines_normalized_red = ((red.lines + arr_cutoff) * arr_ratio)
             segmentList.segments.extend(self.toSegmentMsg(lines_normalized_red, red.normals, Segment.RED))

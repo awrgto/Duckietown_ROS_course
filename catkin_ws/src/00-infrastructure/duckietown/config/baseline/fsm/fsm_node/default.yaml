@@ -80,10 +80,21 @@ events: #Maps from subscribing topic to signal ids
 #    trigger: True
 
 # Define global transitions. Available from all states.
+  yello:
+    topic: "joy_mapper_node/one_color"
+    msg_type: "BoolStamped"
+    trigger: True
+  blue:
+    topic: "joy_mapper_node/one_color"
+    msg_type: "BoolStamped"
+    trigger: False
+
 global_transitions:
   joystick_override_on: "JOYSTICK_CONTROL"
   parallel_autonomy_on: "PARALLEL_AUTONOMY"
   parallel_autonomy_off: "JOYSTICK_CONTROL"
+  yello: "YELLOW_FOLLOWING"
+  blue: "BLUE_FOLLOWING"
 
 # Define nodes 
 nodes:
@@ -200,3 +211,39 @@ states:
     active_nodes:
       - lane_filter_node
       - line_detector_node
+  YELLOW_FOLLOWING:
+    transitions:
+      found_lane: "LANE_FOLLOWING"
+    active_nodes:
+      - anti_instagram
+      - decoder_node
+      - line_detector_node
+      - lane_filter_node
+      - lane_controller_node
+      - stop_line_filter_node
+      - obstacle_detection_node
+      - obstacle_avoidance_node
+      - vehicle_filter_node
+      - vehicle_detection_node
+      - vehicle_avoidance_control_node
+      - charging_control
+    lights: ["lane_following"]
+    current_status: "in_progress"
+  BLUE_FOLLOWING:
+    transitions:
+      found_lane: "LANE_FOLLOWING"
+    active_nodes:
+      - anti_instagram
+      - decoder_node
+      - line_detector_node
+      - lane_filter_node
+      - lane_controller_node
+      - stop_line_filter_node
+      - obstacle_detection_node
+      - obstacle_avoidance_node
+      - vehicle_filter_node
+      - vehicle_detection_node
+      - vehicle_avoidance_control_node
+      - charging_control
+    lights: ["lane_following"]
+    current_status: "in_progress"
