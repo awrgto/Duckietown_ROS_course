@@ -48,7 +48,7 @@ class JoyMapper(object):
         self.pub_parallel_autonomy.publish(pub_msg)
         
         #FSM
-        self.pub_one color = rospy.Publisher("~one color", BoolStamped, queue_size=1)
+        self.pub_one_color = rospy.Publisher("~one_color", BoolStamped, queue_size=1)
 
     def cbParamTimer(self,event):
         self.v_gain = rospy.get_param("~speed_gain", 1.0)
@@ -136,7 +136,7 @@ class JoyMapper(object):
             self.pub_one_color.publish(one_color_msg)
         elif (joy_msg.buttons[2] == 1):
             one_color_msg = BoolStamped()
-            rospy.loginfo('start lane following with Blue)
+            rospy.loginfo('start lane following with Blue')
             one_color_msg.header.stamp = self.joy.header.stamp
             one_color_msg.data = False
             self.pub_one_color.publish(one_color_msg)
