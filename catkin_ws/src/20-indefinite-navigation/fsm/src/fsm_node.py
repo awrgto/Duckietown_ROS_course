@@ -92,6 +92,7 @@ class FSMNode(object):
         for state, state_dict in states_dict.items():        
             # Validate the existence of all reachable states
             transitions_dict = state_dict.get("transitions")
+            rospy.loginfo(state_dict)  #fix nutn
             if transitions_dict is None:
                 continue
             else:

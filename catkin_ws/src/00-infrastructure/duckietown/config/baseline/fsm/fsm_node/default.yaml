@@ -236,7 +236,7 @@ states:
     current_status: "in_progress"
   BLUE_FOLLOWING:
     transitions:
-      found_lane:"LANE_FOLLOWING"
+      found_lane: "LANE_FOLLOWING"
     active_nodes:
       - anti_instagram
       - decoder_node
