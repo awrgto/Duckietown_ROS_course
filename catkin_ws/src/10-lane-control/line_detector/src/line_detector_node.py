@@ -54,7 +54,7 @@ class LineDetectorNode(object):
         self.sub_image = rospy.Subscriber("~image", CompressedImage, self.cbImage, queue_size=1)
         self.sub_transform = rospy.Subscriber("~transform", AntiInstagramTransform, self.cbTransform, queue_size=1)
         self.sub_switch = rospy.Subscriber("~switch", BoolStamped, self.cbSwitch, queue_size=1)
-        self.sub_fsm = rospy.Subscriber("~fsm_mode", FSMState, self.cbFSM, queue_size=1)
+        self.sub_fsm = rospy.Subscriber("/tenYears/fsm_node/mode", FSMState, self.cbFSM, queue_size=1)
         
         rospy.loginfo("[%s] Initialized (verbose = %s)." %(self.node_name, self.verbose))
 
@@ -63,6 +63,7 @@ class LineDetectorNode(object):
         self.fsm_state = None
     
     def cbFSM(self, msg):
+        rospy.loginfo(msg)
         self.fsm_state = msg.state
 
     def updateParams(self, _event):
