@@ -11,7 +11,7 @@
             </node>
             <!-- Remote -->
             <include unless="$(arg local)" file="$(find duckietown)/machines"/>
-            <node unless="$(arg local)" machine="$(arg veh)" pkg="$(arg pkg_name)" type="$(arg node_name).py" name="$(arg node_name)" output="screen" clear_params="true" required="true">
+            <node unless="$(arg local)" machine="$(arg veh)" pkg="$(arg pkg_name)" type="apriltags_control_node.py" name="apriltags_control_node" output="screen" clear_params="true" required="true">
             </node>
         </group>
 
