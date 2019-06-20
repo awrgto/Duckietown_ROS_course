@@ -9,11 +9,13 @@ class ex2_apriltags_node(object):
         self.sub_WCR = rospy.Subscriber("~wheels_cmd", WheelsCmdStamped, self.cbWheelsCmdRec, queue_size=1)
 
         self.cwr = 0
+        self.time_cwr = 0
 
 
     def  cbWheelsCmdRec(self, wC):
         self.cwr += wC.header.stamp.nsecs *( 10**(-9) )* 20 * (wC.vel_left / 0.582576274872)
-        rospy.loginfo(self.cwr)
+        self.time_cwr += wC.header.stamp.nsecs
+        rospy.loginfo("dist %d time %d" %self.cwr ,self.time_cwr)
 
     def get_Apriltag(self, Tag):
         try:
@@ -22,8 +24,9 @@ class ex2_apriltags_node(object):
             rospy.loginfo("-------TAG = %d---------" %(tag_id))
             if tag_id == 302 :
                 self.cwr = 0
+                self.time_cwr = 0
             elif tag_id == 21 :
-                rospy.loginfo("distance from other tag is %d cm" % (self.cwr))
+                rospy.loginfo("distance from other tag is %d cm at %d secs" % (self.cwr, self.time_cwr))
 
         except:
             print("NO TAG")
