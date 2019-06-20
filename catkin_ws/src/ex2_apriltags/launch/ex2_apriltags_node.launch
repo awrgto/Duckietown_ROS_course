@@ -6,6 +6,7 @@
         <arg name="pkg_name" default="ex2_apriltags" doc="name of the package"/>
         <arg name="node_name" default="ex2_apriltags_node" doc="name of the node"/>
         <group ns="$(arg veh)">
+            <remap from="~wheels_cmd" to="/tenYears/wheels_driver_node/wheels_cmd"/>
             <!-- Local -->
             <node if="$(arg local)" pkg="$(arg pkg_name)" type="$(arg node_name).py" name="$(arg node_name)" output="screen" clear_params="true" required="true">
             </node>
