@@ -18,4 +18,4 @@ class apriltags_control_node(object):
 if __name__ == "__main__":
     rospy.init_node("apriltags_control_node", anonymous=True)
     apriltags_control = apriltags_control_node()
-    rospy.spin()
+    rospy.spin() 
