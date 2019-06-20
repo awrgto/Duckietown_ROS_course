@@ -13,6 +13,7 @@ class ex2_apriltags_node(object):
 
     def  cbWheelsCmdRec(self, wC):
         self.cwr += wC.header.stamp.nsecs *( 10**(-9) )* 20 * (wC.vel_left / 0.582576274872)
+        rospy.loginfo(self.cwr)
 
     def get_Apriltag(self, Tag):
         try:
