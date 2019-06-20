@@ -15,6 +15,6 @@ class ex2_apriltags_node(object):
             print("NO TAG")
 
 if __name__ == "__main__":
-    rospy.init_node("ex2_apriltags_node", anonymous=True)
+    rospy.init_node("ex2_apriltags_node", anonymous=False)
     ex2_apriltags = ex2_apriltags_node()
     rospy.spin()
