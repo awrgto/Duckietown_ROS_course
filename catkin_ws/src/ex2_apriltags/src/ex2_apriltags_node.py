@@ -6,7 +6,7 @@ class ex2_apriltags_node(object):
     def __init__(self):
 
         self.sub_tag_id = rospy.Subscriber("apriltags_postprocessing_node/apriltags_out", AprilTagsWithInfos, self.get_Apriltag, queue_size=1)
-        self.sub_tag_id = rospy.Subscriber("~wheels_cmd", WheelsCmdStamped, self.cbWheelsCmdRec, queue_size=1)
+        self.sub_WCR = rospy.Subscriber("~wheels_cmd", WheelsCmdStamped, self.cbWheelsCmdRec, queue_size=1)
 
         self.cwr = 0
 
